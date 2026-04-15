@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>CMB Daily Briefing — 15 Apr 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0A0E1A; --bg-card:#111827; --bg-subtle:#161D2E;
+    --gold:#C9A84C; --gold-dim:#8A6E2F; --gold-faint:rgba(201,168,76,0.06);
+    --red:#E05252; --blue:#4C9BE0; --green:#4CAF7D;
+    --text:#E8E8E8; --text-muted:#9CA3AF; --text-dim:#6B7280;
+    --border:#1F2937; --border-gold:rgba(201,168,76,0.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+
+  /* ── LANGUAGE TOGGLE ── */
+  .lang-bar{
+    position:sticky;top:0;z-index:100;
+    display:flex;align-items:center;justify-content:flex-end;
+    padding:10px 48px;background:rgba(10,14,26,0.95);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--border);
+    gap:8px;
+  }
+  .lang-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text-dim);text-transform:uppercase;margin-right:4px;}
+  .lang-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;
+    letter-spacing:0.12em;text-transform:uppercase;padding:5px 14px;
+    border:1px solid var(--border);background:transparent;color:var(--text-dim);
+    cursor:pointer;transition:all 0.18s;border-radius:2px;
+  }
+  .lang-btn.active{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+  .lang-btn:hover:not(.active){border-color:var(--gold-dim);color:var(--text);}
+
+  /* ── LANGUAGE VISIBILITY ── */
+  [data-lang]{transition:opacity 0.2s;}
+  body.lang-en [data-lang="pt"]{display:none;}
+  body.lang-pt [data-lang="en"]{display:none;}
+
+  /* ── MASTHEAD ── */
+  .masthead{border-bottom:1px solid var(--border);}
+  .masthead-top{display:flex;align-items:center;justify-content:space-between;padding:18px 48px;border-bottom:1px solid var(--border);}
+  .masthead-logo{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;}
+  .masthead-meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);letter-spacing:0.08em;}
+
+  .masthead-hero{padding:52px 48px 44px;position:relative;overflow:hidden;}
+  .masthead-hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(201,168,76,0.06) 0%,transparent 70%);pointer-events:none;}
+
+  .briefing-type{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+  .briefing-type::before{content:'';display:inline-block;width:24px;height:1px;background:var(--gold);}
+
+  .hero-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,4vw,46px);font-weight:900;line-height:1.15;color:var(--text);max-width:780px;margin-bottom:20px;}
+  .hero-title em{font-style:italic;color:var(--gold);}
+  .hero-subtitle{font-size:16px;color:var(--text-muted);max-width:620px;font-style:italic;line-height:1.6;border-left:2px solid var(--gold-dim);padding-left:16px;}
+
+  .signal-bar{display:flex;gap:24px;padding:16px 48px;background:var(--bg-subtle);border-top:1px solid var(--border);border-bottom:3px solid var(--gold);flex-wrap:wrap;}
+  .signal-pill{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:6px;}
+  .signal-pill .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+  .dot-red{background:var(--red);box-shadow:0 0 6px var(--red);}
+  .dot-gold{background:var(--gold);}
+  .dot-blue{background:var(--blue);}
+
+  /* ── LAYOUT ── */
+  .container{max-width:860px;margin:0 auto;padding:0 48px;}
+  section{padding:52px 0 0;}
+  section+section{border-top:1px solid var(--border);margin-top:52px;}
+  .section-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:32px;display:flex;align-items:center;gap:12px;}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+  /* ── SIGNAL CARDS ── */
+  .signals-grid{display:flex;flex-direction:column;gap:2px;}
+  .signal-card{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid transparent;padding:24px 28px;position:relative;}
+  .signal-card.regime{border-left-color:var(--gold);}
+  .signal-card.accel{border-left-color:var(--red);}
+  .signal-card.conv{border-left-color:var(--blue);}
+  .signal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:12px;}
+  .signal-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;line-height:1.3;color:var(--text);}
+  .signal-badge{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+  .score-badge{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;padding:3px 8px;border-radius:2px;letter-spacing:0.05em;}
+  .score-high{background:rgba(201,168,76,0.12);color:var(--gold);border:1px solid var(--gold-dim);}
+  .score-crit{background:rgba(224,82,82,0.12);color:var(--red);border:1px solid rgba(224,82,82,0.3);}
+  .type-tag{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);}
+  .signal-body{font-size:15.5px;color:var(--text-muted);line-height:1.7;margin-bottom:14px;}
+  .signal-insight{font-size:14px;font-style:italic;color:var(--text);border-left:2px solid var(--gold-dim);padding:8px 14px;background:rgba(201,168,76,0.04);border-radius:0 2px 2px 0;}
+  .signal-insight strong{font-style:normal;color:var(--gold);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;display:block;margin-bottom:4px;}
+
+  /* ── COMMODITIES ── */
+  .commodity-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:2px;}
+  .commodity-card{background:var(--bg-card);border:1px solid var(--border);padding:20px 22px;}
+  .commodity-name{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px;}
+  .commodity-direction{font-size:22px;font-weight:700;font-family:'Playfair Display',serif;margin-bottom:6px;}
+  .dir-up{color:var(--red);}
+  .dir-down{color:var(--blue);}
+  .dir-volatile{color:var(--gold);}
+  .commodity-reason{font-size:13px;color:var(--text-muted);line-height:1.5;}
+
+  /* ── RISKS ── */
+  .risk-list{display:flex;flex-direction:column;gap:12px;}
+  .risk-item{display:flex;gap:16px;align-items:flex-start;padding:16px 20px;background:rgba(224,82,82,0.05);border:1px solid rgba(224,82,82,0.12);border-left:3px solid var(--red);}
+  .risk-number{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--red);flex-shrink:0;padding-top:2px;letter-spacing:0.1em;}
+  .risk-text{font-size:15px;color:var(--text-muted);line-height:1.65;}
+  .risk-text strong{color:var(--text);}
+
+  /* ── WATCHLIST ── */
+  .watch-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+  .watch-item{background:var(--bg-card);border:1px solid var(--border);padding:20px 24px;position:relative;}
+  .watch-item::before{content:attr(data-num);font-family:'IBM Plex Mono',monospace;font-size:36px;color:rgba(201,168,76,0.07);position:absolute;top:12px;right:16px;font-weight:700;line-height:1;}
+  .watch-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px;}
+  .watch-body{font-size:14px;color:var(--text-muted);line-height:1.6;}
+
+  /* ── FOOTER ── */
+  .doc-footer{margin-top:72px;border-top:3px solid var(--gold);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;background:var(--bg-subtle);flex-wrap:wrap;gap:12px;}
+  .footer-brand{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.15em;}
+  .footer-meta{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-dim);letter-spacing:0.08em;}
+  .footer-disclaimer{width:100%;font-size:12px;color:var(--text-dim);font-style:italic;padding-top:12px;border-top:1px solid var(--border);margin-top:8px;}
+
+  @media(max-width:640px){
+    .lang-bar{padding:10px 20px;}
+    .masthead-top,.masthead-hero,.container{padding-left:20px;padding-right:20px;}
+    .signal-bar{padding:12px 20px;gap:14px;}
+    .watch-grid{grid-template-columns:1fr;}
+    .commodity-grid{grid-template-columns:1fr 1fr;}
+    .doc-footer{padding:20px 20px;}
+    .hero-title{font-size:26px;}
+  }
+</style>
+</head>
+<body class="lang-pt">
+
+<!-- ── LANGUAGE TOGGLE ── -->
+<div class="lang-bar">
+  <span class="lang-label">Language</span>
+  <button class="lang-btn active" onclick="setLang('pt')" id="btn-pt">PT</button>
+  <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+</div>
+
+<!-- ── MASTHEAD ── -->
+<header class="masthead">
+  <div class="masthead-top">
+    <div class="masthead-logo">CMB · Geopolitical Intelligence</div>
+    <span class="masthead-meta">15 APR 2026 · 15:24 UTC</span>
+  </div>
+
+  <div class="masthead-hero">
+    <div class="briefing-type">
+      <span data-lang="pt">Briefing Diário</span>
+      <span data-lang="en">Daily Briefing</span>
+    </div>
+    <h1 class="hero-title">
+      <span data-lang="pt">O Estreito Está a Um Incidente<br><em>de Fechar</em></span>
+      <span data-lang="en">The Strait Is One Incident<br><em>Away From Closing</em></span>
+    </h1>
+    <p class="hero-subtitle">
+      <span data-lang="pt">O Irã ameaça fechar o Mar Vermelho. Os EUA intensificam o bloqueio naval. Duas cadeias de suprimento — energia e minerais críticos — sob pressão simultânea.</span>
+      <span data-lang="en">Iran threatens to close the Red Sea. The US tightens its naval blockade. Two supply chains — energy and critical minerals — under simultaneous pressure.</span>
+    </p>
+  </div>
+
+  <div class="signal-bar">
+    <div class="signal-pill"><span class="dot dot-red"></span>
+      <span data-lang="pt">Janela de 48h</span><span data-lang="en">48h window</span>
+    </div>
+    <div class="signal-pill"><span class="dot dot-gold"></span>
+      <span data-lang="pt">20 sinais analisados</span><span data-lang="en">20 signals analyzed</span>
+    </div>
+    <div class="signal-pill"><span class="dot dot-blue"></span>
+      <span data-lang="pt">Foco: Energia & Minerais Críticos</span><span data-lang="en">Focus: Energy & Critical Minerals</span>
+    </div>
+  </div>
+</header>
+
+<!-- ── BODY ── -->
+<div class="container">
+
+  <!-- SINAIS -->
+  <section>
+    <div class="section-label">
+      <span data-lang="pt">Principais Sinais</span>
+      <span data-lang="en">Key Signals</span>
+    </div>
+    <div class="signals-grid">
+
+      <div class="signal-card regime">
+        <div class="signal-header">
+          <div class="signal-title">
+            <span data-lang="pt">Irã ameaça fechar o transporte marítimo no Mar Vermelho</span>
+            <span data-lang="en">Iran threatens to block Red Sea shipping</span>
+          </div>
+          <div class="signal-badge">
+            <span class="score-crit">96</span>
+            <span class="type-tag">REGIME</span>
+          </div>
+        </div>
+        <p class="signal-body">
+          <span data-lang="pt">Teerã sinaliza bloqueio ao transporte marítimo no Mar Vermelho caso o bloqueio naval dos EUA persista. A IEA já projeta queda na demanda de petróleo por conflito potencial e estocagem — reduzindo preços no curto prazo, paradoxalmente, mesmo com prêmio de risco em alta.</span>
+          <span data-lang="en">Tehran signals it will block Red Sea shipping if the US naval blockade persists, targeting the world's most critical oil and gas transit corridor. The IEA is already modeling a demand drop from potential conflict and stockpiling — paradoxically lowering prices short-term even as risk premiums surge.</span>
+        </p>
+        <div class="signal-insight">
+          <strong data-lang="pt">O que o mercado não está vendo</strong>
+          <strong data-lang="en">What the market is missing</strong>
+          <span data-lang="pt">O modelo de queda de demanda da IEA trata o conflito como deflacionário. Não é — quando navios desviam pelo Cabo, os custos de frete absorvem todo o "desconto".</span>
+          <span data-lang="en">The IEA demand drop model treats conflict as deflationary. It isn't — once ships reroute around the Cape, freight costs absorb the entire "discount."</span>
+        </div>
+      </div>
+
+      <div class="signal-card regime">
+        <div class="signal-header">
+          <div class="signal-title">
+            <span data-lang="pt">China consolida hegemonia no refino global de terras raras</span>
+            <span data-lang="en">China consolidates rare earth refining hegemony</span>
+          </div>
+          <div class="signal-badge">
+            <span class="score-high">94</span>
+            <span class="type-tag">REGIME</span>
+          </div>
+        </div>
+        <p class="signal-body">
+          <span data-lang="pt">China controla 85% do refino global de terras raras. A indústria de defesa ocidental depende disso — vulnerabilidade estrutural que Pequim está usando explicitamente como arma. Em resposta, o Brasil exige processamento doméstico de suas reservas significativas.</span>
+          <span data-lang="en">China controls 85% of global rare earth refining. The West's defense industry depends on it — a structural vulnerability Beijing is now explicitly weaponizing. In response, Brazil demands domestic processing of its significant reserves, reshaping supply chain geography.</span>
+        </p>
+        <div class="signal-insight">
+          <strong data-lang="pt">O que o mercado não está vendo</strong>
+          <strong data-lang="en">What the market is missing</strong>
+          <span data-lang="pt">Isto não é um ciclo de commodity. É uma mudança permanente de regime sobre quem controla os insumos da tecnologia de defesa e energia moderna.</span>
+          <span data-lang="en">This isn't a commodity cycle. It's a permanent regime change in who controls the inputs of modern defense and energy technology.</span>
+        </div>
+      </div>
+
+      <div class="signal-card accel">
+        <div class="signal-header">
+          <div class="signal-title">
+            <span data-lang="pt">Trégua EUA-Irã em colapso — mediação paquistanesa fracassa</span>
+            <span data-lang="en">US-Iran truce unraveling — Pakistani mediation fails</span>
+          </div>
+          <div class="signal-badge">
+            <span class="score-high">86</span>
+            <span class="type-tag">ACELERAÇÃO</span>
+          </div>
+        </div>
+        <p class="signal-body">
+          <span data-lang="pt">A trégua EUA-Irã se desfaz apesar da mediação paquistanesa e declarações de Trump sobre um "possível acordo." Dados convergentes confirmam ambiente perigoso no Estreito de Hormuz, com tensões regionais em loop autorreforçador.</span>
+          <span data-lang="en">The US-Iran truce is unraveling despite Pakistani mediation and Trump's public statements about a "possible deal." Converging data confirms a dangerous environment in the Strait of Hormuz, with regional tensions in a self-reinforcing loop.</span>
+        </p>
+        <div class="signal-insight">
+          <strong data-lang="pt">Monitorar</strong>
+          <strong data-lang="en">Watch</strong>
+          <span data-lang="pt">Fracasso da mediação paquistanesa é o indicador antecedente. Se Islamabade recuar, remover toda probabilidade de saída diplomática.</span>
+          <span data-lang="en">Pakistani mediation failure is the leading indicator. If Islamabad withdraws, remove all probability of a diplomatic off-ramp.</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ATIVOS -->
+  <section>
+    <div class="section-label">
+      <span data-lang="pt">Ativos Afetados</span>
+      <span data-lang="en">Affected Assets</span>
+    </div>
+    <div class="commodity-grid">
+      <div class="commodity-card">
+        <div class="commodity-name"><span data-lang="pt">Petróleo</span><span data-lang="en">Oil</span></div>
+        <div class="commodity-direction dir-up">↑ <span data-lang="pt">Alta</span><span data-lang="en">Rising</span></div>
+        <div class="commodity-reason"><span data-lang="pt">Bloqueio marítimo + prêmio de risco Hormuz. Spike em qualquer incidente.</span><span data-lang="en">Maritime blockade + Hormuz risk premium. Volatility spike on any incident.</span></div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-name"><span data-lang="pt">Gás Natural</span><span data-lang="en">Natural Gas</span></div>
+        <div class="commodity-direction dir-up">↑ <span data-lang="pt">Alta</span><span data-lang="en">Rising</span></div>
+        <div class="commodity-reason"><span data-lang="pt">Custos de desvio LNG + piso estrutural por demanda de IA.</span><span data-lang="en">LNG rerouting costs + AI datacenter demand structural floor.</span></div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-name"><span data-lang="pt">Terras Raras</span><span data-lang="en">Rare Earths</span></div>
+        <div class="commodity-direction dir-volatile">⚡ <span data-lang="pt">Volátil</span><span data-lang="en">Volatile</span></div>
+        <div class="commodity-reason"><span data-lang="pt">Controles de exportação da China + política de processamento do Brasil.</span><span data-lang="en">China export controls + Brazil processing policy reshaping the curve.</span></div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-name"><span data-lang="pt">Ouro</span><span data-lang="en">Gold</span></div>
+        <div class="commodity-direction dir-up">↑ <span data-lang="pt">Alta</span><span data-lang="en">Rising</span></div>
+        <div class="commodity-reason"><span data-lang="pt">Fluxo de safe-haven. Incerteza geopolítica em máximas de vários anos.</span><span data-lang="en">Safe-haven flows. Geopolitical uncertainty at multi-year highs.</span></div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-name"><span data-lang="pt">Frete Marítimo</span><span data-lang="en">Freight</span></div>
+        <div class="commodity-direction dir-up">↑ <span data-lang="pt">Alta</span><span data-lang="en">Rising</span></div>
+        <div class="commodity-reason"><span data-lang="pt">Prêmio de desvio pelo Cabo + custos de seguro no Mar Vermelho.</span><span data-lang="en">Cape rerouting premium + Red Sea insurance costs.</span></div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-name"><span data-lang="pt">Painéis Solares</span><span data-lang="en">Solar Panels</span></div>
+        <div class="commodity-direction dir-volatile">⚡ <span data-lang="pt">Risco</span><span data-lang="en">Risk</span></div>
+        <div class="commodity-reason"><span data-lang="pt">Risco de restrição de exportação chinesa de silício e painéis.</span><span data-lang="en">Chinese export restriction risk on silicon and panels.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RISCOS -->
+  <section>
+    <div class="section-label">
+      <span data-lang="pt">Riscos Emergentes</span>
+      <span data-lang="en">Emerging Risks</span>
+    </div>
+    <div class="risk-list">
+      <div class="risk-item">
+        <span class="risk-number">01</span>
+        <div class="risk-text">
+          <span data-lang="pt"><strong>Escalada militar no Oriente Médio</strong> — Potencial envolvimento do Irã e EUA com interrupção total das rotas marítimas no Mar Vermelho e Estreito de Hormuz.</span>
+          <span data-lang="en"><strong>Military escalation in the Middle East</strong> — Potential US-Iran confrontation with full disruption of Red Sea and Hormuz shipping routes.</span>
+        </div>
+      </div>
+      <div class="risk-item">
+        <span class="risk-number">02</span>
+        <div class="risk-text">
+          <span data-lang="pt"><strong>Conflito direto EUA-China</strong> — Implicações profundas para cadeias de suprimento, mercados de energia e minerais críticos.</span>
+          <span data-lang="en"><strong>US-China direct conflict</strong> — Deep implications for supply chains, energy markets, and critical minerals.</span>
+        </div>
+      </div>
+      <div class="risk-item">
+        <span class="risk-number">03</span>
+        <div class="risk-text">
+          <span data-lang="pt"><strong>Fragmentação de minerais críticos</strong> — Restrições de exportação e nacionalização de processamento reconfiguram cadeias globais.</span>
+          <span data-lang="en"><strong>Critical mineral chain fragmentation</strong> — Export restrictions and processing nationalization reshape global supply chains.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WATCHLIST -->
+  <section>
+    <div class="section-label">
+      <span data-lang="pt">Radar — Próximas 48h</span>
+      <span data-lang="en">Watchlist — Next 48h</span>
+    </div>
+    <div class="watch-grid">
+      <div class="watch-item" data-num="01">
+        <div class="watch-title"><span data-lang="pt">Mar Vermelho & Hormuz</span><span data-lang="en">Red Sea & Hormuz</span></div>
+        <div class="watch-body"><span data-lang="pt">Qualquer movimento naval iraniano ou interdição americana. Resultado binário: de-escalada ou spike imediato no petróleo.</span><span data-lang="en">Any Iranian naval movement or US interdiction. Binary outcome: de-escalation or immediate oil spike.</span></div>
+      </div>
+      <div class="watch-item" data-num="02">
+        <div class="watch-title"><span data-lang="pt">Negociações EUA–Irã</span><span data-lang="en">US–Iran Negotiations</span></div>
+        <div class="watch-body"><span data-lang="pt">Monitorar status da mediação paquistanesa. Retirada de Islamabade = saída diplomática fechada.</span><span data-lang="en">Monitor Pakistani mediation status. Islamabad withdrawal = diplomatic off-ramp closed.</span></div>
+      </div>
+      <div class="watch-item" data-num="03">
+        <div class="watch-title"><span data-lang="pt">China: Terras Raras & Solar</span><span data-lang="en">China: Rare Earths & Solar</span></div>
+        <div class="watch-body"><span data-lang="pt">Qualquer anúncio de restrição de exportação reconfigura cadeias de suprimento imediatamente.</span><span data-lang="en">Any export restriction announcement reshapes global supply chains immediately.</span></div>
+      </div>
+      <div class="watch-item" data-num="04">
+        <div class="watch-title"><span data-lang="pt">Brasil: Processamento de Terras Raras</span><span data-lang="en">Brazil: Rare Earth Processing</span></div>
+        <div class="watch-body"><span data-lang="pt">Implementação do mandato de processamento doméstico — alternativa estratégica à dependência chinesa.</span><span data-lang="en">Implementation of domestic processing mandate — strategic alternative to Chinese dependency.</span></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="doc-footer">
+  <div class="footer-brand">CMB · Geopolitical Intelligence</div>
+  <div class="footer-meta">Daily Briefing · 15 Apr 2026 · 48h · 20 signals</div>
+  <div class="footer-disclaimer">
+    <span data-lang="pt">Este briefing é produzido pelo CMB Intel Engine para fins informativos e analíticos. Não constitui conselho de investimento ou recomendação de compra ou venda de qualquer ativo.</span>
+    <span data-lang="en">This briefing is produced by the CMB Intel Engine for informational and analytical purposes only. It does not constitute investment advice or a recommendation to buy or sell any security or asset.</span>
+  </div>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+  }
+  // Detect browser language on load
+  (function(){
+    const bl = (navigator.language || navigator.userLanguage || 'pt').toLowerCase();
+    if (!bl.startsWith('pt')) setLang('en');
+  })();
+</script>
+</body>
+</html>

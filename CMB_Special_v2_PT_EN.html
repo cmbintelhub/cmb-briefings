@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>CMB Impact Mapper — O Novo Petróleo Não Está no Solo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0A0E1A;--bg-card:#111827;--bg-subtle:#161D2E;--gold:#C9A84C;--gold-dim:#8A6E2F;--gold-faint:rgba(201,168,76,0.06);--red:#E05252;--blue:#4C9BE0;--green:#4CAF7D;--text:#E8E8E8;--text-muted:#9CA3AF;--text-dim:#6B7280;--border:#1F2937;--border-gold:rgba(201,168,76,0.22);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+
+  /* TOGGLE */
+  .lang-bar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:flex-end;padding:10px 48px;background:rgba(10,14,26,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);gap:8px;}
+  .lang-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text-dim);text-transform:uppercase;margin-right:4px;}
+  .lang-btn{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:5px 14px;border:1px solid var(--border);background:transparent;color:var(--text-dim);cursor:pointer;transition:all 0.18s;border-radius:2px;}
+  .lang-btn.active{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+  .lang-btn:hover:not(.active){border-color:var(--gold-dim);color:var(--text);}
+  body.lang-en [data-lang="pt"]{display:none;}
+  body.lang-pt [data-lang="en"]{display:none;}
+
+  /* MASTHEAD */
+  .masthead{border-bottom:1px solid var(--border);}
+  .masthead-top{display:flex;align-items:center;justify-content:space-between;padding:18px 48px;border-bottom:1px solid var(--border);}
+  .masthead-logo{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;}
+  .masthead-meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);letter-spacing:0.08em;}
+
+  /* HERO */
+  .hero{padding:72px 48px 60px;background:radial-gradient(ellipse 70% 60% at 90% 50%,rgba(201,168,76,0.07) 0%,transparent 70%),linear-gradient(180deg,var(--bg) 0%,rgba(10,14,26,0.95) 100%);position:relative;overflow:hidden;border-bottom:3px solid var(--gold);}
+  .hero-eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:28px;flex-wrap:wrap;}
+  .impact-badge{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--bg);background:var(--gold);padding:4px 10px;font-weight:500;}
+  .category-badge{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-dim);padding:3px 9px;}
+  .horizon-badge{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);border:1px solid var(--border);padding:3px 9px;}
+  .hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,60px);font-weight:900;line-height:1.1;color:var(--text);max-width:800px;margin-bottom:12px;}
+  .hero-title em{font-style:italic;color:var(--gold);}
+  .hero-subtitle{font-family:'Playfair Display',serif;font-size:clamp(16px,2.2vw,24px);font-weight:700;font-style:italic;color:var(--text-muted);max-width:680px;margin-bottom:36px;line-height:1.4;}
+  .thesis-block{max-width:720px;border-left:3px solid var(--gold);padding:20px 28px;background:rgba(201,168,76,0.05);margin-bottom:32px;}
+  .thesis-block p{font-size:17px;font-style:italic;line-height:1.75;color:var(--text);}
+  .thesis-block p+p{margin-top:12px;}
+  .meta-row{display:flex;gap:24px;flex-wrap:wrap;}
+  .meta-item{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);letter-spacing:0.1em;}
+  .meta-item span{color:var(--text-muted);}
+
+  /* LAYOUT */
+  .container{max-width:880px;margin:0 auto;padding:0 48px;}
+  section{padding:60px 0 0;}
+  section+section{border-top:1px solid var(--border);margin-top:60px;}
+  .section-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:32px;display:flex;align-items:center;gap:12px;}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+  /* INSIGHT GRID */
+  .insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+  .insight-card{background:var(--bg-card);border:1px solid var(--border);padding:32px;}
+  .insight-card.insight-main{border-left:4px solid var(--gold);}
+  .insight-card.insight-asym{border-left:4px solid var(--blue);}
+  .insight-tag{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px;}
+  .tag-gold{color:var(--gold);}
+  .tag-blue{color:var(--blue);}
+  .insight-body{font-size:15.5px;color:var(--text-muted);line-height:1.75;}
+  .insight-body strong{color:var(--text);}
+
+  /* ORDER SYSTEM */
+  .order-header{display:flex;align-items:center;gap:16px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+  .order-number{font-family:'Playfair Display',serif;font-size:52px;font-weight:900;line-height:1;color:rgba(201,168,76,0.15);flex-shrink:0;}
+  .order-title{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+  .order-subtitle{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text);}
+  .order-desc{font-size:14.5px;color:var(--text-muted);font-style:italic;}
+  .effect-list{display:flex;flex-direction:column;gap:2px;}
+  .effect-card{background:var(--bg-card);border:1px solid var(--border);padding:28px 32px;position:relative;}
+  .effect-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--border);}
+  .effect-card.order-1::before{background:var(--red);}
+  .effect-card.order-2::before{background:var(--gold);}
+  .effect-card.order-3::before{background:var(--blue);}
+  .effect-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.3;}
+  .effect-body{font-size:15px;color:var(--text-muted);line-height:1.75;margin-bottom:16px;}
+  .effect-body p+p{margin-top:12px;}
+  .effect-body strong{color:var(--text);}
+  .asset-row{display:flex;gap:8px;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--border);}
+  .asset-tag{font-family:'IBM Plex Mono',monospace;font-size:10.5px;padding:3px 9px;border-radius:2px;letter-spacing:0.08em;}
+  .asset-up{background:rgba(224,82,82,0.1);color:var(--red);border:1px solid rgba(224,82,82,0.2);}
+  .asset-down{background:rgba(76,155,224,0.1);color:var(--blue);border:1px solid rgba(76,155,224,0.2);}
+  .asset-neut{background:rgba(201,168,76,0.08);color:var(--gold);border:1px solid rgba(201,168,76,0.2);}
+
+  /* FOOTER */
+  .doc-footer{margin-top:80px;border-top:3px solid var(--gold);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;background:var(--bg-subtle);flex-wrap:wrap;gap:12px;}
+  .footer-brand{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.15em;}
+  .footer-meta{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-dim);letter-spacing:0.08em;}
+  .footer-disclaimer{width:100%;font-size:12px;color:var(--text-dim);font-style:italic;padding-top:12px;border-top:1px solid var(--border);margin-top:8px;}
+
+  @media(max-width:640px){
+    .lang-bar{padding:10px 20px;}
+    .masthead-top,.hero,.container{padding-left:20px;padding-right:20px;}
+    .insight-grid{grid-template-columns:1fr;}
+    .doc-footer{padding:20px 20px;}
+    .hero-title{font-size:28px;}
+    .hero-eyebrow{gap:8px;}
+    .effect-card{padding:20px 20px;}
+  }
+</style>
+</head>
+<body class="lang-pt">
+
+<div class="lang-bar">
+  <span class="lang-label">Language</span>
+  <button class="lang-btn active" onclick="setLang('pt')" id="btn-pt">PT</button>
+  <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+</div>
+
+<header class="masthead">
+  <div class="masthead-top">
+    <div class="masthead-logo">CMB · Impact Mapper</div>
+    <span class="masthead-meta">11 APR 2026 · Deep Analysis</span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <span class="impact-badge">Impact Mapper</span>
+      <span class="category-badge">Supply Chain</span>
+      <span class="horizon-badge"><span data-lang="pt">Médio Prazo</span><span data-lang="en">Medium Term</span></span>
+    </div>
+
+    <h1 class="hero-title">
+      <span data-lang="pt">O Novo Petróleo Não Está no Solo —<br><em>Está na Usina</em></span>
+      <span data-lang="en">The New Oil Isn't in the Ground —<br><em>It's in the Refinery</em></span>
+    </h1>
+    <p class="hero-subtitle">
+      <span data-lang="pt">Como o pivô americano para processamento de terras raras reescreve as regras da soberania tecnológica</span>
+      <span data-lang="en">How the US rare earth processing pivot rewrites the rules of technological sovereignty</span>
+    </p>
+
+    <div class="thesis-block">
+      <p data-lang="pt">Os EUA implementam mudança de regime na estratégia de terras raras, priorizando processamento doméstico sobre mineração bruta para quebrar o monopólio chinês de 85% do refino global. Esta reorientação representa uma inflexão histórica similar ao Projeto Manhattan — com implicações estruturais para toda a cadeia de tecnologias críticas.</p>
+      <p data-lang="en">The US implements a regime change in rare earth strategy, prioritizing domestic processing over raw mining to break China's 85% monopoly on global refining. This reorientation represents a historic inflection similar to the Manhattan Project — with structural implications for the entire critical technology supply chain.</p>
+    </div>
+
+    <div class="meta-row">
+      <div class="meta-item"><span data-lang="pt">Modo:</span><span data-lang="en">Mode:</span> <span>Profundo (Claude)</span></div>
+      <div class="meta-item"><span data-lang="pt">Data:</span><span data-lang="en">Date:</span> <span>11 Abr / Apr 2026</span></div>
+      <div class="meta-item"><span data-lang="pt">Horizonte:</span><span data-lang="en">Horizon:</span> <span><span data-lang="pt">Médio prazo</span><span data-lang="en">Medium term</span></span></div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <section>
+    <div class="section-label">
+      <span data-lang="pt">Núcleo Analítico</span><span data-lang="en">Analytical Core</span>
+    </div>
+    <div class="insight-grid">
+      <div class="insight-card insight-main">
+        <div class="insight-tag tag-gold">// Key Insight</div>
+        <div class="insight-body">
+          <span data-lang="pt">A verdadeira assimetria não está no rally das mining companies. Está na transformação estrutural da arquitetura de poder global.<br><br>Estamos presenciando o nascimento de uma nova forma de soberania baseada no <strong>controle de processing capabilities de materiais críticos</strong>. Países que dominarem esta capacidade ganham vantagem tecnológica permanente. Os demais enfrentam dependência perpétua — uma bifurcação civilizacional que o mercado ainda não compreendeu.</span>
+          <span data-lang="en">The true asymmetry isn't in mining company rallies. It's in the structural transformation of global power architecture.<br><br>We are witnessing the birth of a new form of sovereignty based on <strong>control of critical material processing capabilities</strong>. Countries that master this gain permanent technological advantage. The rest face perpetual dependence — a civilizational bifurcation the market has not yet understood.</span>
+        </div>
+      </div>
+      <div class="insight-card insight-asym">
+        <div class="insight-tag tag-blue">// <span data-lang="pt">Assimetria</span><span data-lang="en">Asymmetry</span></div>
+        <div class="insight-body">
+          <span data-lang="pt">O mercado está precificando terras raras como commodity cycle típico.<br><br>Na realidade é <strong>regime change permanente</strong>. A oportunidade está em assets que se beneficiam da reconfiguração geográfica da produção industrial e da bifurcação de sistemas financeiros globais.<br><br><strong>Esta bifurcação é civilizacional. O mercado ainda não a precificou.</strong></span>
+          <span data-lang="en">The market is pricing rare earths as a typical commodity cycle.<br><br>In reality this is <strong>permanent regime change</strong>. The opportunity is in assets benefiting from the geographic reconfiguration of industrial production and the bifurcation of global financial systems.<br><br><strong>This bifurcation is civilizational. The market has not priced it yet.</strong></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1ª ORDEM -->
+  <section>
+    <div class="order-header">
+      <div class="order-number">1</div>
+      <div>
+        <div class="order-title"><span data-lang="pt">1ª Ordem</span><span data-lang="en">First Order</span></div>
+        <div class="order-subtitle"><span data-lang="pt">Efeitos Diretos</span><span data-lang="en">Direct Effects</span></div>
+        <div class="order-desc"><span data-lang="pt">Impactos imediatos e diretos da mudança de estratégia americana</span><span data-lang="en">Immediate and direct impacts of the American strategy shift</span></div>
+      </div>
+    </div>
+    <div class="effect-list">
+
+      <div class="effect-card order-1">
+        <div class="effect-title"><span data-lang="pt">Rally Imediato em Processadores Ocidentais de Terras Raras</span><span data-lang="en">Immediate Rally in Western Rare Earth Processors</span></div>
+        <div class="effect-body">
+          <p data-lang="pt">Empresas como MP Materials, Lynas Corporation e Rainbow Rare Earths experimentam valorização acentuada. O mercado reconhece que estas empresas se tornarão beneficiárias diretas de subsídios, contratos governamentais e proteções tarifárias. Historicamente, mudanças de regime em políticas de segurança nacional geram retornos de 40-60% nos primeiros 6 meses para players estratégicos.</p>
+          <p data-lang="en">Companies like MP Materials, Lynas Corporation, and Rainbow Rare Earths rally sharply. The market recognizes these companies will become direct beneficiaries of subsidies, government contracts, and tariff protections. Historically, national security policy regime changes generate 40–60% returns in the first 6 months for strategic players.</p>
+        </div>
+        <div class="asset-row">
+          <span class="asset-up">↑ MP Materials (MP)</span>
+          <span class="asset-up">↑ Lynas Corporation (LYC)</span>
+          <span class="asset-up">↑ <span data-lang="pt">Terras raras processadas (óxidos)</span><span data-lang="en">Processed rare earths (oxides)</span></span>
+        </div>
+      </div>
+
+      <div class="effect-card order-1">
+        <div class="effect-title"><span data-lang="pt">Pressão Inflacionária em Ímãs Permanentes e Componentes</span><span data-lang="en">Inflationary Pressure on Permanent Magnets and Components</span></div>
+        <div class="effect-body">
+          <p data-lang="pt">A transição para processamento doméstico implica custos 30-50% superiores versus China nos próximos 2-3 anos. Fabricantes de ímãs de neodímio, motores elétricos e turbinas eólicas enfrentam squeeze de margens imediato. Não há substitutos para muitas aplicações críticas — a inelasticidade da demanda amplifica o efeito.</p>
+          <p data-lang="en">Transition to domestic processing costs 30–50% more than China for 2–3 years. Neodymium magnet manufacturers, electric motor and wind turbine makers face immediate margin squeeze. No substitutes exist for many critical applications — demand inelasticity amplifies the effect.</p>
+        </div>
+        <div class="asset-row">
+          <span class="asset-up">↑ <span data-lang="pt">Neodímio · Disprósio</span><span data-lang="en">Neodymium · Dysprosium</span></span>
+          <span class="asset-down">↓ <span data-lang="pt">Fabricantes de ímãs (margens)</span><span data-lang="en">Magnet manufacturers (margins)</span></span>
+        </div>
+      </div>
+
+      <div class="effect-card order-1">
+        <div class="effect-title"><span data-lang="pt">Aceleração de Parcerias Geopolíticas — Quad e AUKUS</span><span data-lang="en">Geopolitical Partnership Acceleration — Quad and AUKUS</span></div>
+        <div class="effect-body">
+          <p data-lang="pt">EUA intensificam acordos com Austrália (55% das reservas globais conhecidas), Canadá e aliados europeus. Esta movimentação replica a estratégia do CHIPS Act, criando blocos econômicos excludentes. Austrália emerge como pivot geográfico central — hegemonia tecnológica requer controle de inputs críticos.</p>
+          <p data-lang="en">US intensifies agreements with Australia (55% of known global reserves), Canada, and European allies. This mirrors the CHIPS Act strategy, creating exclusive economic blocs. Australia emerges as the central geographic pivot — technological hegemony requires control of critical inputs.</p>
+        </div>
+        <div class="asset-row">
+          <span class="asset-up">↑ AUD</span>
+          <span class="asset-up">↑ <span data-lang="pt">Mining australianas</span><span data-lang="en">Australian mining companies</span></span>
+          <span class="asset-up">↑ <span data-lang="pt">Região Ásia-Pacífico</span><span data-lang="en">Asia-Pacific region</span></span>
+        </div>
+      </div>
+
+      <div class="effect-card order-1">
+        <div class="effect-title"><span data-lang="pt">Resposta Defensiva Chinesa — Controles de Exportação</span><span data-lang="en">Chinese Defensive Response — Export Controls</span></div>
+        <div class="effect-body">
+          <p data-lang="pt">China implementa restrições mais agressivas seguindo o playbook histórico de 2010-2012. Pode reduzir exportações em 40-60% sem impacto significativo na economia doméstica, gerando choques de oferta globais. Mecanismo: weaponization de commodity crítica para manter hegemonia tecnológica.</p>
+          <p data-lang="en">China implements more aggressive restrictions following the historical 2010–2012 playbook. Can reduce exports 40–60% without significant domestic economic impact while generating global supply shocks. Mechanism: weaponization of critical commodity to maintain technological hegemony.</p>
+        </div>
+        <div class="asset-row">
+          <span class="asset-up">↑ CNY</span>
+          <span class="asset-up">↑ <span data-lang="pt">Empresas chinesas de TRs</span><span data-lang="en">Chinese RE companies</span></span>
+          <span class="asset-down">↓ <span data-lang="pt">Relações EUA-China</span><span data-lang="en">US-China relations</span></span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 2ª ORDEM -->
+  <section>
+    <div class="order-header">
+      <div class="order-number">2</div>
+      <div>
+        <div class="order-title"><span data-lang="pt">2ª Ordem</span><span data-lang="en">Second Order</span></div>
+        <div class="order-subtitle"><span data-lang="pt">Efeitos Indiretos</span><span data-lang="en">Indirect Effects</span></div>
+        <div class="order-desc"><span data-lang="pt">Reações e adaptações sistêmicas que surgem dos efeitos diretos</span><span data-lang="en">Systemic reactions and adaptations arising from direct effects</span></div>
+      </div>
+    </div>
+    <div class="effect-list">
+
+      <div class="effect-card order-2">
+        <div class="effect-title"><span data-lang="pt">Boom de CapEx em Infraestrutura de Processamento Alternativa</span><span data-lang="en">CapEx Boom in Alternative Processing Infrastructure</span></div>
+        <div class="effect-body">
+          <p data-lang="pt">US$ 50-100 bilhões mobilizados em capacidade de processamento nos próximos 5 anos. Empresas de engenharia, construção industrial e tecnologia química se beneficiam de capex cycle massivo. Paralelo histórico: buildup de refino de petróleo pós-OPEC nos anos 1970s. Lag time de 3-5 anos para construção cria janela de oportunidade para fornecedores especializados.</p>
+          <p data-lang="en">$50–100B mobilized for processing capacity over 5 years. Engineering, industrial construction, and chemical technology firms benefit from massive capex cycle. Historical parallel: post-OPEC oil refining buildout in the 1970s. 3–5 year construction lag creates opportunity window for specialized equipment suppliers.</p>
+        </div>
+        <div class="asset-row">
+          <span class="asset-up">↑ <span data-lang="pt">Engenharia química</span><span data-lang="en">Chemical engineering</span></span>
+          <span class="asset-up">↑ <span data-lang="pt">Aço especializado & equipamentos</span><span data-lang="en">Specialty steel & industrial equipment</span></span>
+          <span class="asset-down">↓ <span data-lang="pt">Bonds corporativos de utilities</span><span data-lang="en">Utility corporate bonds</span></span>
+        </div>
+      </div>
+
+      <div class="effect-card order-2">
+        <div class="effect-title"><span data-lang="pt">Reshoring Acelerado da Cadeia de Eletrônicos</span><span data-lang="en">Accelerated Electronics Supply Chain Reshoring</span></div>
+        <div class="effect-body">
+          <p data-lang="pt">Apple, Tesla, Boeing e Lockheed Martin redesenham supply chains globais, criando clusters industriais próximos a facilities de processamento doméstico. Lead time de 18-36 meses para reconfiguração cria disrupções temporárias e premium por proximidade geográfica.</p>
+          <p data-lang="en">Apple, Tesla, Boeing, and Lockheed Martin redesign global supply chains, creating industrial clusters near domestic processing facilities. 18–36 month reconfiguration lead time creates temporary disruptions and geographic proximity premium.</p>
+        </div>
+        <div class="asset-row">
+          <span class="asset-up">↑ <span data-lang="pt">Real estate industrial — Texas, Wyoming</span><span data-lang="en">Industrial real estate — Texas, Wyoming</span></span>
+          <span class="asset-up">↑ <span data-lang="pt">Transporte ferroviário doméstico</span><span data-lang="en">Domestic rail transport</span></span>
+          <span class="asset-up">↑ <span data-lang="pt">Manufatura mexicana (nearshoring)</span><span data-lang="en">Mexican manufacturing (nearshoring)</span></span>
+        </div>
+      </div>
+
+      <div class="effect-card order-2">
+        <div class="effect-title"><span data-lang="pt">Disrupção no Setor de Energia Renovável</span><span data-lang="en">Renewable Energy Sector Disruption</span></div>
+        <div class="effect-body">
+          <p data-lang="pt">Custos elevados de terras raras impactam economics de turbinas eólicas e motores de veículos elétricos. Vestas, GE e Tesla aceleram P&D em alternativas como ímãs ferrite e motores de indução. Time lag de 2-3 anos para comercialização potencialmente atrasa targets de descarbonização.</p>
+          <p data-lang="en">Higher rare earth costs impact wind turbine and EV motor economics. Vestas, GE, and Tesla accelerate R&D in alternatives like ferrite magnets and induction motors. 2–3 year commercialization lag potentially delays decarbonization targets.</p>
+        </div>
+        <div class="asset-row">
+          <span class="asset-down">↓ <span data-lang="pt">Fabricantes de turbinas eólicas (margens)</span><span data-lang="en">Wind turbine manufacturers (margins)</span></span>
+          <span class="asset-up">↑ Cobre / Copper</span>
+          <span class="asset-up">↑ <span data-lang="pt">Gás natural (delay renovável)</span><span data-lang="en">Natural gas (renewable delay)</span></span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3ª ORDEM -->
+  <section>
+    <div class="order-header">
+      <div class="order-number">3</div>
+      <div>
+        <div class="order-title"><span data-lang="pt">3ª Ordem</span><span data-lang="en">Third Order</span></div>
+        <div class="order-subtitle"><span data-lang="pt">Efeitos Estruturais</span><span data-lang="en">Structural Effects</span></div>
+        <div class="order-desc"><span data-lang="pt">Transformações civilizacionais de longo prazo — o que o mercado ainda não precificou</span><span data-lang="en">Long-term civilizational transformations — what the market has not priced yet</span></div>
+      </div>
+    </div>
+    <div class="effect-list">
+
+      <div class="effect-card order-3">
+        <div class="effect-title"><span data-lang="pt">Bifurcação Permanente do Sistema Monetário Internacional</span><span data-lang="en">Permanent Bifurcation of the International Monetary System</span></div>
+        <div class="effect-body">
+          <p data-lang="pt">A weaponization de terras raras acelera sistemas financeiros paralelos: China desenvolve clearing em yuan para commodities críticas, EUA fortalecem sistemas dólar-based. Resultado: dois ecossistemas financeiros incompatíveis onde a escolha da rota de processamento determina o acesso à infraestrutura financeira. Fim do pricing unificado global de commodities.</p>
+          <p data-lang="en">Rare earth weaponization accelerates parallel financial systems: China develops yuan-based clearing for critical commodities, US strengthens dollar-based systems. Result: two incompatible financial ecosystems where processing route choice determines access to financial infrastructure. End of unified global commodity pricing.</p>
+        </div>
+        <div class="asset-row">
+          <span class="asset-up">↑ <span data-lang="pt">Ouro / Gold</span></span>
+          <span class="asset-neut">⚡ Bitcoin</span>
+          <span class="asset-down">↓ USD <span data-lang="pt">(hegemonia)</span><span data-lang="en">(hegemony)</span></span>
+        </div>
+      </div>
+
+      <div class="effect-card order-3">
+        <div class="effect-title"><span data-lang="pt">Metamorfose do Conceito de Soberania Nacional</span><span data-lang="en">Metamorphosis of the Concept of National Sovereignty</span></div>
+        <div class="effect-body">
+          <p data-lang="pt">Controle sobre processing capacity de terras raras se torna equivalente a capacidade nuclear em termos de importância estratégica. Nações sem capacidade doméstica enfrentam dependência tecnológica permanente. Esta transição marca o fim da globalização como princípio organizador — retorno a blocos econômicos autárquicos. Paralelo histórico: mercantilismo do século XVIII, mas com complexidade que torna o catch-up exponencialmente mais difícil.</p>
+          <p data-lang="en">Control over rare earth processing capacity becomes equivalent to nuclear capability in terms of strategic importance. Nations without domestic capacity face permanent technological dependence. This marks the end of globalization as the organizing principle — return to autarkic economic blocs. Historical parallel: 18th century mercantilism, but with complexity that makes catch-up exponentially harder.</p>
+        </div>
+        <div class="asset-row">
+          <span class="asset-up">↑ <span data-lang="pt">Defense contractors com processing</span><span data-lang="en">Defense contractors with processing</span></span>
+          <span class="asset-up">↑ <span data-lang="pt">Currencies de nações processadoras</span><span data-lang="en">Processor nation currencies</span></span>
+          <span class="asset-down">↓ <span data-lang="pt">Economias dependentes de importação</span><span data-lang="en">Import-dependent economies</span></span>
+        </div>
+      </div>
+
+      <div class="effect-card order-3">
+        <div class="effect-title"><span data-lang="pt">Reconfiguração Geográfica da Produção Industrial Global</span><span data-lang="en">Geographic Reconfiguration of Global Industrial Production</span></div>
+        <div class="effect-body">
+          <p data-lang="pt">Processing requer energia e água em abundância, forçando produção industrial para regiões com recursos naturais abundantes e geopolítica estável. Wyoming, Texas, Austrália Ocidental e Canadá emergem como novos centros de gravidade para manufatura high-tech. Impacto similar ao Canal de Suez no século XIX — escolhas de infraestrutura determinam geografia econômica por décadas.</p>
+          <p data-lang="en">Processing requires abundant energy and water, forcing industrial production toward regions with abundant natural resources and stable geopolitics. Wyoming, Texas, Western Australia, and Canada emerge as new centers of gravity for high-tech manufacturing. Impact similar to the Suez Canal in the 19th century — infrastructure choices determine economic geography for decades.</p>
+        </div>
+        <div class="asset-row">
+          <span class="asset-up">↑ <span data-lang="pt">Real estate — Wyoming, North Dakota</span></span>
+          <span class="asset-up">↑ <span data-lang="pt">Utilities resource-rich</span><span data-lang="en">Resource-rich utilities</span></span>
+          <span class="asset-down">↓ <span data-lang="pt">Real estate costeiro urbano (relativo)</span><span data-lang="en">Coastal urban real estate (relative)</span></span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<footer class="doc-footer">
+  <div class="footer-brand">CMB · Impact Mapper v1.0</div>
+  <div class="footer-meta">Deep Analysis · 11 Apr 2026 · Supply Chain · Medium Term</div>
+  <div class="footer-disclaimer">
+    <span data-lang="pt">Esta análise é produzida pelo CMB Impact Mapper para fins informativos e analíticos. Não constitui conselho de investimento ou recomendação de compra ou venda de qualquer ativo.</span>
+    <span data-lang="en">This analysis is produced by the CMB Impact Mapper for informational and analytical purposes only. It does not constitute investment advice or a recommendation to buy or sell any security or asset.</span>
+  </div>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+  }
+  (function(){
+    const bl = (navigator.language || navigator.userLanguage || 'pt').toLowerCase();
+    if (!bl.startsWith('pt')) setLang('en');
+  })();
+</script>
+</body>
+</html>

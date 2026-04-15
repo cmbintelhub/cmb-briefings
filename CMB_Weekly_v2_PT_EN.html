@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>CMB Weekly Briefing — 15 Apr 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0A0E1A;--bg-card:#111827;--bg-subtle:#161D2E;--gold:#C9A84C;--gold-dim:#8A6E2F;--gold-faint:rgba(201,168,76,0.06);--red:#E05252;--blue:#4C9BE0;--green:#4CAF7D;--text:#E8E8E8;--text-muted:#9CA3AF;--text-dim:#6B7280;--border:#1F2937;--border-gold:rgba(201,168,76,0.25);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+
+  /* TOGGLE */
+  .lang-bar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:flex-end;padding:10px 48px;background:rgba(10,14,26,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);gap:8px;}
+  .lang-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text-dim);text-transform:uppercase;margin-right:4px;}
+  .lang-btn{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:5px 14px;border:1px solid var(--border);background:transparent;color:var(--text-dim);cursor:pointer;transition:all 0.18s;border-radius:2px;}
+  .lang-btn.active{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+  .lang-btn:hover:not(.active){border-color:var(--gold-dim);color:var(--text);}
+  body.lang-en [data-lang="pt"]{display:none;}
+  body.lang-pt [data-lang="en"]{display:none;}
+
+  /* MASTHEAD */
+  .masthead{border-bottom:1px solid var(--border);}
+  .masthead-top{display:flex;align-items:center;justify-content:space-between;padding:18px 48px;border-bottom:1px solid var(--border);}
+  .masthead-logo{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;}
+  .masthead-meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);letter-spacing:0.08em;}
+  .masthead-hero{padding:60px 48px 52px;position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(201,168,76,0.04) 0%,transparent 50%);}
+  .masthead-hero::after{content:'WEEK';position:absolute;right:40px;top:50%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-size:140px;font-weight:900;color:rgba(201,168,76,0.04);line-height:1;pointer-events:none;user-select:none;}
+  .briefing-type{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+  .briefing-type::before{content:'';display:inline-block;width:24px;height:1px;background:var(--gold);}
+  .hero-title{font-family:'Playfair Display',serif;font-size:clamp(30px,4.5vw,52px);font-weight:900;line-height:1.12;color:var(--text);max-width:760px;margin-bottom:24px;}
+  .hero-title em{font-style:italic;color:var(--gold);}
+  .hero-editorial{max-width:680px;font-size:17px;line-height:1.8;color:var(--text-muted);}
+  .hero-editorial p+p{margin-top:16px;}
+  .hero-editorial strong{color:var(--text);font-weight:600;}
+  .signal-bar{display:flex;gap:24px;padding:16px 48px;background:var(--bg-subtle);border-top:1px solid var(--border);border-bottom:3px solid var(--gold);flex-wrap:wrap;}
+  .signal-pill{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:6px;}
+  .signal-pill .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+  .dot-red{background:var(--red);box-shadow:0 0 6px var(--red);}
+  .dot-gold{background:var(--gold);}
+  .dot-blue{background:var(--blue);}
+
+  /* LAYOUT */
+  .container{max-width:860px;margin:0 auto;padding:0 48px;}
+  section{padding:56px 0 0;}
+  section+section{border-top:1px solid var(--border);margin-top:56px;}
+  .section-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-dim);margin-bottom:32px;display:flex;align-items:center;gap:12px;}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+  /* TENSION MAP */
+  .tension-map{display:flex;flex-direction:column;gap:2px;}
+  .tension-axis{background:var(--bg-card);border:1px solid var(--border);padding:28px 32px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;}
+  .axis-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text);margin-bottom:10px;}
+  .axis-name span{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:400;color:var(--text-dim);display:block;margin-bottom:6px;letter-spacing:0.1em;text-transform:uppercase;}
+  .axis-body{font-size:15px;color:var(--text-muted);line-height:1.7;}
+  .axis-meter{text-align:center;flex-shrink:0;min-width:80px;}
+  .meter-value{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;line-height:1;margin-bottom:4px;}
+  .meter-high{color:var(--red);}
+  .meter-elevated{color:var(--gold);}
+  .meter-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);}
+
+  /* CONTRARIAN */
+  .contrarian-box{background:var(--bg-subtle);border:1px solid var(--border-gold);border-left:4px solid var(--gold);padding:36px 40px;position:relative;overflow:hidden;}
+  .contrarian-box::before{content:'⊘';position:absolute;right:32px;top:24px;font-size:64px;color:rgba(201,168,76,0.06);line-height:1;}
+  .contrarian-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+  .contrarian-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;line-height:1.3;color:var(--text);margin-bottom:20px;}
+  .contrarian-title em{font-style:italic;color:var(--gold);}
+  .contrarian-body{font-size:16px;color:var(--text-muted);line-height:1.8;}
+  .contrarian-body p+p{margin-top:14px;}
+  .contrarian-body strong{color:var(--text);}
+
+  /* COMMODITIES */
+  .commodity-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:2px;}
+  .commodity-card{background:var(--bg-card);border:1px solid var(--border);padding:20px 22px;}
+  .commodity-name{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px;}
+  .commodity-direction{font-size:20px;font-weight:700;font-family:'Playfair Display',serif;margin-bottom:6px;}
+  .dir-up{color:var(--red);}
+  .dir-down{color:var(--blue);}
+  .dir-volatile{color:var(--gold);}
+  .commodity-reason{font-size:13px;color:var(--text-muted);line-height:1.5;}
+
+  /* RISKS */
+  .risk-list{display:flex;flex-direction:column;gap:12px;}
+  .risk-item{display:flex;gap:16px;align-items:flex-start;padding:16px 20px;background:rgba(224,82,82,0.05);border:1px solid rgba(224,82,82,0.12);border-left:3px solid var(--red);}
+  .risk-number{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--red);flex-shrink:0;padding-top:2px;letter-spacing:0.1em;}
+  .risk-text{font-size:15px;color:var(--text-muted);line-height:1.65;}
+  .risk-text strong{color:var(--text);}
+
+  /* RADAR */
+  .radar-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+  .radar-item{background:var(--bg-card);border:1px solid var(--border);padding:22px 26px;position:relative;}
+  .radar-item::before{content:attr(data-num);font-family:'IBM Plex Mono',monospace;font-size:34px;color:rgba(201,168,76,0.07);position:absolute;top:12px;right:16px;font-weight:700;line-height:1;}
+  .radar-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px;}
+  .radar-body{font-size:13.5px;color:var(--text-muted);line-height:1.6;}
+
+  /* FOOTER */
+  .doc-footer{margin-top:72px;border-top:3px solid var(--gold);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;background:var(--bg-subtle);flex-wrap:wrap;gap:12px;}
+  .footer-brand{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.15em;}
+  .footer-meta{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-dim);letter-spacing:0.08em;}
+  .footer-disclaimer{width:100%;font-size:12px;color:var(--text-dim);font-style:italic;padding-top:12px;border-top:1px solid var(--border);margin-top:8px;}
+
+  @media(max-width:640px){
+    .lang-bar{padding:10px 20px;}
+    .masthead-top,.masthead-hero,.container{padding-left:20px;padding-right:20px;}
+    .signal-bar{padding:12px 20px;gap:14px;}
+    .radar-grid{grid-template-columns:1fr;}
+    .commodity-grid{grid-template-columns:1fr 1fr;}
+    .tension-axis{grid-template-columns:1fr;}
+    .doc-footer{padding:20px 20px;}
+    .masthead-hero::after{display:none;}
+    .hero-title{font-size:28px;}
+    .contrarian-box{padding:24px 24px;}
+  }
+</style>
+</head>
+<body class="lang-pt">
+
+<div class="lang-bar">
+  <span class="lang-label">Language</span>
+  <button class="lang-btn active" onclick="setLang('pt')" id="btn-pt">PT</button>
+  <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+</div>
+
+<header class="masthead">
+  <div class="masthead-top">
+    <div class="masthead-logo">CMB · Geopolitical Intelligence</div>
+    <span class="masthead-meta">Week of 15 APR 2026 · 7-day window</span>
+  </div>
+
+  <div class="masthead-hero">
+    <div class="briefing-type">
+      <span data-lang="pt">Briefing Semanal</span>
+      <span data-lang="en">Weekly Briefing</span>
+    </div>
+    <h1 class="hero-title">
+      <span data-lang="pt">A Semana em que Dois Monopólios<br><em>Mostraram os Dentes</em></span>
+      <span data-lang="en">The Week Two Monopolies<br><em>Bared Their Teeth</em></span>
+    </h1>
+    <div class="hero-editorial">
+      <p data-lang="pt">Em sete dias, dois eixos estruturais da economia global se moveram ao mesmo tempo — e na mesma direção. O Irã escalou sua ameaça sobre o Estreito de Ormuz ao ponto mais alto desde 2019. A China consolidou sua dominância no refino de terras raras enquanto o Ocidente ainda debatia como reagir.</p>
+      <p data-lang="en">In seven days, two structural axes of the global economy moved simultaneously — and in the same direction. Iran escalated its Strait of Hormuz threat to its highest point since 2019. China consolidated its rare earth refining dominance while the West was still debating how to respond.</p>
+      <p data-lang="pt"><strong>O consenso está errado nos dois casos.</strong> Está tratando essas como crises separadas. Não são. É a mesma crise: a fratura da ordem unipolar de cadeias de suprimento construída nos últimos 30 anos.</p>
+      <p data-lang="en"><strong>The consensus view is wrong on both.</strong> It's treating these as separate crises. They're not. They're the same crisis: the fracture of the unipolar supply chain order that the last 30 years were built on.</p>
+    </div>
+  </div>
+
+  <div class="signal-bar">
+    <div class="signal-pill"><span class="dot dot-red"></span>
+      <span data-lang="pt">Janela de 7 dias</span><span data-lang="en">7-day window</span>
+    </div>
+    <div class="signal-pill"><span class="dot dot-gold"></span>
+      <span data-lang="pt">20 sinais analisados</span><span data-lang="en">20 signals analyzed</span>
+    </div>
+    <div class="signal-pill"><span class="dot dot-blue"></span>
+      <span data-lang="pt">Nível de ameaça elevado</span><span data-lang="en">Elevated threat level</span>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <section>
+    <div class="section-label">
+      <span data-lang="pt">Mapa de Tensões</span><span data-lang="en">Tension Map</span>
+    </div>
+    <div class="tension-map">
+
+      <div class="tension-axis">
+        <div>
+          <div class="axis-name">
+            <span data-lang="pt">Eixo I</span><span data-lang="en">Axis I</span>
+            <span data-lang="pt" style="display:block;font-family:'Source Serif 4',serif;font-size:20px;font-weight:700;color:var(--text);margin-top:0;">Oriente Médio — Rota Energética Global</span>
+            <span data-lang="en" style="display:block;font-family:'Source Serif 4',serif;font-size:20px;font-weight:700;color:var(--text);margin-top:0;">Middle East — Global Energy Route</span>
+          </div>
+          <div class="axis-body">
+            <span data-lang="pt">O assassinato de Ali Khamenei e o ataque EUA-Israel elevam o risco de interrupção energética a nível sem precedentes. O Irã demonstra controle efetivo sobre o Estreito de Ormuz e ameaça fechar o Mar Vermelho. Ataques israelenses no Líbano e ataques iranianos a oleodutos sauditas sublinham a fragilidade da segurança regional.</span>
+            <span data-lang="en">The assassination of Ali Khamenei and US-Israel strikes elevate energy disruption risk to unprecedented levels. Iran demonstrates effective control over the Strait of Hormuz and threatens the Red Sea. Israeli strikes in Lebanon and Iranian attacks on Saudi pipelines underscore the fragility of regional security.</span>
+          </div>
+        </div>
+        <div class="axis-meter">
+          <div class="meter-value meter-high">100</div>
+          <div class="meter-label">Acceleration</div>
+        </div>
+      </div>
+
+      <div class="tension-axis">
+        <div>
+          <div class="axis-name">
+            <span data-lang="pt">Eixo II</span><span data-lang="en">Axis II</span>
+            <span data-lang="pt" style="display:block;font-family:'Source Serif 4',serif;font-size:20px;font-weight:700;color:var(--text);margin-top:0;">Guerra de Minerais Críticos — EUA vs. China</span>
+            <span data-lang="en" style="display:block;font-family:'Source Serif 4',serif;font-size:20px;font-weight:700;color:var(--text);margin-top:0;">Critical Minerals War — US vs. China</span>
+          </div>
+          <div class="axis-body">
+            <span data-lang="pt">China consolida dominância em terras raras. EUA e UE avançam em pacto de minerais críticos. O Brasil exige processamento doméstico de suas reservas, adicionando nova camada à dinâmica de poder. O risco de conflito em Taiwan paira sobre as cadeias de semicondutores.</span>
+            <span data-lang="en">China consolidates rare earth dominance. The US and EU advance a critical minerals pact to reduce Chinese dependency. Brazil demands domestic processing of its reserves. Taiwan conflict risk looms over semiconductor chains.</span>
+          </div>
+        </div>
+        <div class="axis-meter">
+          <div class="meter-value meter-elevated">94</div>
+          <div class="meter-label">Regime</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">
+      <span data-lang="pt">Tese Contrarian da Semana</span><span data-lang="en">Contrarian Thesis of the Week</span>
+    </div>
+    <div class="contrarian-box">
+      <div class="contrarian-tag">
+        <span data-lang="pt">// O que o mercado está errando esta semana</span>
+        <span data-lang="en">// What the market is getting wrong this week</span>
+      </div>
+      <div class="contrarian-title">
+        <span data-lang="pt">O Mercado Precifica o Cessar-Fogo.<br><em>Deveria Precificar a Arquitetura do Pós-Guerra.</em></span>
+        <span data-lang="en">The Market Is Pricing the Ceasefire.<br><em>It Should Be Pricing the Post-War Architecture.</em></span>
+      </div>
+      <div class="contrarian-body">
+        <p data-lang="pt">Quando o cessamento de fogo EUA-Irã gerou uma breve queda nos preços do petróleo, o mercado demonstrou que ainda opera em modo "crise e resolução" — binário, com memória curta. Mas os sinais desta semana apontam para algo diferente: não estamos vendo uma crise que se resolve. Estamos vendo a instalação de uma nova arquitetura de poder.</p>
+        <p data-lang="en">When the US-Iran ceasefire briefly dropped oil prices, the market showed it still operates in "crisis and resolution" mode — binary, short-memory. But this week's signals point to something different: we're not watching a crisis that resolves. We're watching the installation of a new power architecture.</p>
+        <p data-lang="pt"><strong>A posição assimétrica:</strong> Assets que se beneficiam da bifurcação permanente das cadeias de suprimento — não de prêmios temporários de risco geopolítico. O prêmio desaparece. A bifurcação não.</p>
+        <p data-lang="en"><strong>The asymmetric position:</strong> Assets that benefit from permanent supply chain bifurcation — not from temporary geopolitical risk premiums. The premium fades. The bifurcation doesn't.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">
+      <span data-lang="pt">Ativos Afetados</span><span data-lang="en">Affected Assets</span>
+    </div>
+    <div class="commodity-grid">
+      <div class="commodity-card">
+        <div class="commodity-name"><span data-lang="pt">Petróleo</span><span data-lang="en">Oil</span></div>
+        <div class="commodity-direction dir-up">↑↑ <span data-lang="pt">Extremo</span><span data-lang="en">Extreme</span></div>
+        <div class="commodity-reason"><span data-lang="pt">Ormuz + Mar Vermelho + ataques a oleodutos sauditas. Stack de prêmio de risco sem precedentes.</span><span data-lang="en">Hormuz + Red Sea + Saudi pipeline attacks. Unprecedented risk premium stack.</span></div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-name"><span data-lang="pt">Gás Natural</span><span data-lang="en">Natural Gas</span></div>
+        <div class="commodity-direction dir-up">↑ <span data-lang="pt">Alta</span><span data-lang="en">Rising</span></div>
+        <div class="commodity-reason"><span data-lang="pt">Disrupção de LNG + demanda de data centers de IA criando piso estrutural.</span><span data-lang="en">LNG disruption + AI datacenter demand creating structural floor.</span></div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-name"><span data-lang="pt">Ouro</span><span data-lang="en">Gold</span></div>
+        <div class="commodity-direction dir-up">↑ <span data-lang="pt">Alta</span><span data-lang="en">Rising</span></div>
+        <div class="commodity-reason"><span data-lang="pt">Safe-haven + hedge de bifurcação monetária. Tese de acumulação de longo prazo intacta.</span><span data-lang="en">Safe-haven + monetary bifurcation hedge. Multi-year accumulation thesis intact.</span></div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-name"><span data-lang="pt">Terras Raras</span><span data-lang="en">Rare Earths</span></div>
+        <div class="commodity-direction dir-volatile">⚡ Regime</div>
+        <div class="commodity-reason"><span data-lang="pt">Não é um ciclo. Mudança permanente de regime no controle de processamento.</span><span data-lang="en">Not a cycle. Permanent regime change in processing control.</span></div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-name"><span data-lang="pt">Semicondutores</span><span data-lang="en">Semiconductors</span></div>
+        <div class="commodity-direction dir-volatile">⚡ Taiwan</div>
+        <div class="commodity-reason"><span data-lang="pt">Probabilidade de escalada em Taiwan crescendo. Implicações catastróficas se ativado.</span><span data-lang="en">Taiwan escalation probability rising. Catastrophic supply chain implications if triggered.</span></div>
+      </div>
+      <div class="commodity-card">
+        <div class="commodity-name"><span data-lang="pt">Frete</span><span data-lang="en">Freight</span></div>
+        <div class="commodity-direction dir-up">↑ <span data-lang="pt">Alta</span><span data-lang="en">Rising</span></div>
+        <div class="commodity-reason"><span data-lang="pt">Desvio pelo Cabo + spike de seguro marítimo + ameaça de minas em Hormuz.</span><span data-lang="en">Cape rerouting + maritime insurance spike + mine threat in Hormuz.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">
+      <span data-lang="pt">Riscos de Cauda</span><span data-lang="en">Tail Risks</span>
+    </div>
+    <div class="risk-list">
+      <div class="risk-item">
+        <span class="risk-number">01</span>
+        <div class="risk-text">
+          <span data-lang="pt"><strong>Escalada descontrolada no Oriente Médio</strong> — Interrupção total de Ormuz e Mar Vermelho. Choque energético global catastrófico.</span>
+          <span data-lang="en"><strong>Uncontrolled escalation in the Middle East</strong> — Full Hormuz + Red Sea closure. Catastrophic global energy shock.</span>
+        </div>
+      </div>
+      <div class="risk-item">
+        <span class="risk-number">02</span>
+        <div class="risk-text">
+          <span data-lang="pt"><strong>Conflito EUA-China sobre Taiwan</strong> — Colapso das cadeias globais de semicondutores e minerais críticos.</span>
+          <span data-lang="en"><strong>US-China conflict over Taiwan</strong> — Global semiconductor and critical mineral chain collapse.</span>
+        </div>
+      </div>
+      <div class="risk-item">
+        <span class="risk-number">03</span>
+        <div class="risk-text">
+          <span data-lang="pt"><strong>Crise energética global aprofundada</strong> — Racionamento de combustível e inflação galopante com volatilidade extrema.</span>
+          <span data-lang="en"><strong>Deep global energy crisis</strong> — Fuel rationing and runaway inflation from extreme price volatility.</span>
+        </div>
+      </div>
+      <div class="risk-item">
+        <span class="risk-number">04</span>
+        <div class="risk-text">
+          <span data-lang="pt"><strong>Minas marítimas no Estreito de Ormuz</strong> — Paralisação do transporte de energia mesmo sem conflito direto.</span>
+          <span data-lang="en"><strong>Maritime mines in the Strait of Hormuz</strong> — Energy transport paralysis without direct conflict.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">
+      <span data-lang="pt">Radar — Próxima Semana</span><span data-lang="en">Next Week Radar</span>
+    </div>
+    <div class="radar-grid">
+      <div class="radar-item" data-num="01">
+        <div class="radar-title"><span data-lang="pt">Sustentabilidade do Cessar-Fogo EUA-Irã</span><span data-lang="en">US-Iran Ceasefire Sustainability</span></div>
+        <div class="radar-body"><span data-lang="pt">Frequência/intensidade de ataques no Líbano e Arábia Saudita indicam a real estabilidade do acordo.</span><span data-lang="en">Attack frequency in Lebanon and Saudi Arabia indicates real agreement stability.</span></div>
+      </div>
+      <div class="radar-item" data-num="02">
+        <div class="radar-title"><span data-lang="pt">Segurança Marítima: Ormuz & Mar Vermelho</span><span data-lang="en">Maritime Security: Hormuz & Red Sea</span></div>
+        <div class="radar-body"><span data-lang="pt">Qualquer sinal de minas marítimas ou bloqueio impacta diretamente frete e energia.</span><span data-lang="en">Any sign of maritime mines or blockade directly impacts freight and energy prices.</span></div>
+      </div>
+      <div class="radar-item" data-num="03">
+        <div class="radar-title"><span data-lang="pt">Pacto EUA-UE de Minerais Críticos</span><span data-lang="en">US-EU Critical Minerals Pact</span></div>
+        <div class="radar-body"><span data-lang="pt">Progresso e políticas da Austrália, Brasil e Canadá vão redefinir dependência global da China.</span><span data-lang="en">Australia, Brazil, Canada policy moves will redefine global dependency from China.</span></div>
+      </div>
+      <div class="radar-item" data-num="04">
+        <div class="radar-title"><span data-lang="pt">Taiwan & Retórica EUA-China</span><span data-lang="en">Taiwan & US-China Rhetoric</span></div>
+        <div class="radar-body"><span data-lang="pt">Qualquer escalada ou movimento militar tem implicações catastróficas para semicondutores.</span><span data-lang="en">Any escalation or military movement has catastrophic semiconductor implications.</span></div>
+      </div>
+      <div class="radar-item" data-num="05">
+        <div class="radar-title"><span data-lang="pt">Demanda de Gás por IA</span><span data-lang="en">AI-Driven Gas Demand</span></div>
+        <div class="radar-body"><span data-lang="pt">Relatórios de consumo de data centers — pressão estrutural e crescente sobre o gás natural.</span><span data-lang="en">Datacenter consumption reports — structural, growing pressure on natural gas. Not cyclical.</span></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="doc-footer">
+  <div class="footer-brand">CMB · Geopolitical Intelligence</div>
+  <div class="footer-meta">Weekly Briefing · Week of 15 Apr 2026 · 7-day · 20 signals</div>
+  <div class="footer-disclaimer">
+    <span data-lang="pt">Este briefing é produzido pelo CMB Intel Engine para fins informativos e analíticos. Não constitui conselho de investimento ou recomendação de compra ou venda de qualquer ativo.</span>
+    <span data-lang="en">This briefing is produced by the CMB Intel Engine for informational and analytical purposes only. It does not constitute investment advice or a recommendation to buy or sell any security or asset.</span>
+  </div>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+  }
+  (function(){
+    const bl = (navigator.language || navigator.userLanguage || 'pt').toLowerCase();
+    if (!bl.startsWith('pt')) setLang('en');
+  })();
+</script>
+</body>
+</html>
